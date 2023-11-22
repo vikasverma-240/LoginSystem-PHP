@@ -23,7 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // $exists = false;
 
         if ($password == $cpassword) {
-            $sql = "INSERT INTO `users` (`username`, `password`, `date`) VALUES ('$username', '$password', current_timestamp())";
+            //Here we creating haspassword
+            $_has_password = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO `users` (`username`, `password`, `date`) VALUES ('$username', '$_has_password', current_timestamp())";
             //echo $sql; // Add this line to print the SQL query
 
             $result = mysqli_query($conn, $sql);
@@ -76,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form action="signup.php" method="post">
             <div class="mb-3">
                 <label for="username" class="form-label">User Name</label>
-                <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+                <input type="text" maxlength="12" class="form-control" id="username" name="username" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
